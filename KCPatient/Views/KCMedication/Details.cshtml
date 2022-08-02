@@ -1,0 +1,54 @@
+﻿@model KCPatient.Models.Medication
+@using Microsoft.AspNetCore.Http;
+@{
+    ViewData["Title"] = "Details of Medication for " + Context.Session.GetString("medicationName");
+}
+
+<h1>Details of Medication for  @Context.Session.GetString("medicationName")</h1>
+
+<div>
+   
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Concentration)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Concentration)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Concentration Code")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ConcentrationCodeNavigation.ConcentrationCode)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Dispensing Code")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DispensingCodeNavigation.DispensingCode)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Medication Type")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MedicationType.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Din">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

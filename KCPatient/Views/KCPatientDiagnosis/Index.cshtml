@@ -1,0 +1,54 @@
+﻿@model IEnumerable<KCPatient.Models.PatientDiagnosis>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+@if ((string)TempData["diagError"] == "true")
+{
+    <div class="validationMed">
+        <span>Select a proper diagnosis</span>
+    </div>
+
+}
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Comments)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Diagnosis)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patient)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comments)
+                </td>
+                <td>
+                    @Html.ActionLink(item.Diagnosis.Name, "Index", "KCPatientTreatment", new { Id = item.PatientDiagnosisId, diagnosis = item.Diagnosis.Name, patientName = item.Patient.LastName + ", " + item.Patient.FirstName }, null /* html attributes */)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Patient.FirstName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.PatientDiagnosisId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.PatientDiagnosisId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.PatientDiagnosisId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

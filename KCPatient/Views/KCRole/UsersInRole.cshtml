@@ -1,0 +1,57 @@
+﻿@model UserRole;
+@{ ViewData["Title"] = "User In Role '" + ViewBag.RoleName + "'";
+                var roleId = ViewBag.roleId; }
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post" asp-action="AddUserToRole">
+    <div class="text-danger" asp-validation-summary="All"></div>
+
+    <div class="form-group">
+        <label>Users not in role:</label>
+        <select class="col-md-4" asp-for="UserName" asp-items="ViewBag.notAddedUsers"></select>
+        <input value="@roleId" type="hidden" asp-for="RoleId" />
+        <input class="btn btn-primary" type="submit" value="Add To Role" />
+    </div>
+</form>
+
+@if (Model.UserInRole.Any())
+{
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <label class="control-label" asp-for="@Model.UserInRole[0].UserName"></label>
+            </th>
+            <th>
+                <label class="control-label" asp-for="@Model.UserInRole[0].Email"></label>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.UserInRole.Count; i++)
+        {
+<tr>
+    <td>
+        @Model.UserInRole[i].UserName
+    </td>
+    <td>
+        @Model.UserInRole[i].UserName
+    </td>
+    <td>
+        <form method="post" asp-action="RemoveUserFromRole">
+            <div class="text-danger" asp-validation-summary="All"></div>
+            <div class="form-group">
+                <input asp-for="RoleId" value="@roleId" type="hidden" />
+                <input asp-for="UserName" value="@Model.UserInRole[i].UserName" type="hidden" />
+                <input class="btn btn-primary" type="submit" value="Remove" />
+            </div>
+        </form>
+    </td>
+</tr>}
+    </tbody>
+</table> }
+            else
+            {
+<div>No users in this role in the file.</div>}
+<a asp-action="Index" asp-controller="KCRole">Return to Role List</a>

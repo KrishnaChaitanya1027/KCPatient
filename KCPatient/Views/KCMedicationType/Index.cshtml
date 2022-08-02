@@ -1,0 +1,46 @@
+﻿@model IEnumerable<KCPatient.Models.MedicationType>
+
+@{
+    ViewData["Title"] = "List of Medication Type";
+}
+
+<h1>List of Medication Type</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+
+@if ((string)TempData["medicationTypeError"] == "true")
+{
+<div class="validationMed">
+    <span>Select a medication type to see its medications</span>
+</div>
+   
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.Name, "Index", "KCMedication", new { Id = item.MedicationTypeId, medName = item.Name }, null /* html attributes */)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MedicationTypeId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.MedicationTypeId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MedicationTypeId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
